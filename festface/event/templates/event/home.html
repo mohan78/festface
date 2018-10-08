@@ -1,0 +1,63 @@
+{% extends 'event/base.html' %}
+
+{% block body %}
+<div class="mycontainer" id="home">
+  <div class="">
+    <div class="" style="text-align:center" id="home-intro">
+      <h2>A platform to manage your college events.</h2>
+      <p>Are you about to host an event in your college? Thinking of how to manage the event? <br> Festface can help you in managing the events smoothly. From attendee registrations to resource management, everything is included and free for use.</p>
+    </div>
+    <hr>
+    <h3 style="text-align: center;color:#987B94"><b>Simple process</b></h3>
+    <div class="row" style="margin:0" id="home-steps">
+      <h4></h4>
+      <div class="col-lg-2">
+        <p>Create a admin account and login into your account</p>
+      </div>
+      <div class="col-lg-1" style="margin: auto 0">
+        <p><i class="fas fa-arrow-circle-right"></i></p>
+      </div>
+      <div class="col-lg-2">
+        <p>Using the admin account create an event and add sub-events or competitions.</p>
+      </div>
+      <div class="col-lg-1" style="margin: auto 0">
+        <p><i class="fas fa-arrow-circle-right"></i></p>
+      </div>
+      <div class="col-lg-2">
+        <p>Share the link for event registration with the enthusiast participants.</p>
+      </div>
+      <div class="col-lg-1" style="margin: auto 0">
+        <p><i class="fas fa-arrow-circle-right"></i></p>
+      </div>
+      <div class="col-lg-3">
+        <p>Using the registration link, parcticipants can register for the event.</p>
+      </div>
+    </div>
+    <hr>
+    <h3 style="text-align: center; color:#987B94"><b>Features</b> </h3>
+    <div class="row" style="margin:0" id="features">
+      <div class="col-lg-4">
+        <div class="">
+          <h4>Participant registration</h4>
+          <p>People who wish to participate the event can register online for the event</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="">
+          <h4>Hassle free setup</h4>
+          <p>Creating events and managing content is as easy as publishing a fb post</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="">
+          <h4>Admin console</h4>
+          <p>Get to know the stats and content management thorugh the admin dashboard</p>
+        </div>
+      </div>
+    </div>
+    <div class="center">
+      <button type="submit" name="button" class="btn1"><a href="{% url 'festmeta' %}">Get started</a></button>
+    </div>
+  </div>
+</div>
+{% endblock %}

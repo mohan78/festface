@@ -1,0 +1,77 @@
+{% extends 'event/base.html' %}
+
+{% block body %}
+{% load static %}
+<div class="mycontainer" id="eventdisplay">
+  <div class="" id="displayevent">
+    <input type="text" name="pk" value="{{event.pk}}" hidden id="pk">
+    <h3>{{event.title}}</h3>
+    <p>{{event.festname}}</p>
+    <p>{{event.short_desc}}</p>
+    <p><strong>Description:</strong> {{event.brief_desc}}</p>
+    <p><strong>Event date:</strong> {{event.eventdate}}</p>
+    <p><strong>Branch:</strong> {{event.category}}</p>
+    <p><strong>Venue:</strong> {{event.venue}}</p>
+    <p><strong>Registration Fee:</strong> {{event.registration_fee}}</p>
+  </div>
+  <h4 id="rulesheading">Rules:</h4>
+  <div class="" id="rules">
+    <ol>
+      {% for rule in rules %}
+        <li>{{rule.rule}}</li>
+      {% endfor %}
+    </ol>
+  </div>
+  {% if user.is_authenticated %}
+    {% if regflag == True %}
+      <p id="alreadyreg">You have already registered for this event.</p>
+    {% else %}
+      <button type="button" name="button" class="btn btn-outline-success" id="register">Register</button>
+    {% endif %}
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">Login</a> to register</p>
+  {% endif %}
+  {% if event.festname.username == user.username %}
+    <button type="button" name="button" id="deleteevent">Delete event</button>
+  {% endif %}
+</div>
+{% endblock %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#register').on('click',function(){
+      var pk = document.getElementById("pk").value;
+      $.ajax({
+        type: "GET",
+        url:'/registerevent/',
+        data: {
+          'id':pk
+        },
+        dataType: 'json',
+        success: function(data){
+          alert(data.message);
+          $('#register').prop('disabled',true);
+        }
+      })
+    });
+    $('#deleteevent').on('click',function(){
+      var pk = $('#pk').val();
+      if (confirm("Are you sure deleting the sub-event?")){
+        $.ajax({
+          method: 'get',
+          url: '/deleteevent',
+          data: {
+            'pk':pk
+          },
+          dataType: 'json',
+          success: function(message){
+            $('#eventdisplay').html(message.message)
+          }
+        });
+      }
+      return false;
+    });
+  })
+</script>
+{% endblock %}

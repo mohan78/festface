@@ -1,0 +1,155 @@
+{% extends 'event/base.html' %}
+{% block body %}
+<div class="mycontainer" id="editfest">
+  <h4 style="padding:10px">Edit {{fest.festname}}</h4>
+  <form class="" action="{% url 'editfest' fest.id %}" method="post" >
+    {% csrf_token %}
+    <div class="form-row" style="margin: 0 10px">
+      <div class="form-group col-lg-6">
+        <label for="festname" class="">Fest/Event name</label>
+        <input type="text" name="festname" value="{{fest.festname}}" class="form-control" required autofocus>
+      </div>
+      <div class="form-group col-lg-3">
+        <label for="startdate" class="">Start date</label>
+        <input type="text" name="startdate" value="{{fest.start_date|date:'d-m-Y'}}" class="form-control" id="datepicker" placeholder="DD-MM-YYYY" required>
+      </div>
+      <div class="form-group col-lg-3">
+        <label for="enddate" class="">End date</label>
+        <input type="text" name="enddate" value="{{fest.end_date|date:'d-m-Y'}}" class="form-control" id="datepicker1" placeholder="DD-MM-YYYY" required>
+      </div>
+    </div>
+    <div class="form-group col-lg-12">
+      <label for="description">Description</label>
+      <textarea name="description" rows="3" class="form-control" required>{{fest.description}}</textarea>
+    </div>
+    <div class="form-row" style="margin:0 10px">
+      <div class="form-group col-lg-6">
+        <label for="college" class="">College/School</label>
+        <input type="text" name="college" value="{{fest.college}}" class="form-control" required>
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="venue" class="">Venue</label>
+        <input type="text" name="venue" value="{{fest.venue}}" class="form-control" required>
+      </div>
+    </div>
+    <div class="form-row" style="margin:0 10px">
+      <div class="form-group col-lg-6">
+        <label for="branch" class="">Branch</label>
+        <select class="form-control" name="branch">
+          <option {% if fest.branch == 'Electronics and Communication Engineering' %} selected {% endif %} value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+          <option {% if fest.branch == 'Electrical and Electronics Engineering' %} selected {% endif %} value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+          <option {% if fest.branch == 'Computer Science and Engineering' %} selected {% endif %} value="Computer Science and Engineering">Computer Science and Engineering</option>
+          <option {% if fest.branch == 'Electronics and Communication Engineering' %} selected {% endif %} value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+          <option {% if fest.branch == 'Civil Engineering' %} selected {% endif %} value="Civil Engineering">Civil Engineering</option>
+          <option {% if fest.branch == 'Information Technology' %} selected {% endif %} value="Information Technology">Information Technology</option>
+          <option {% if fest.branch == 'MBA' %} selected {% endif %} value="MBA">MBA</option>
+        </select>
+      </div>
+    </div>
+    <hr>
+    <p class="heading">Location details</p>
+    <div class="form-group col-lg-12">
+      <label for="address" class="">Address</label>
+      <input type="text" name="address" value="{{fest.college_address}}" class="form-control" required>
+    </div>
+    <div class="form-row" style="margin:0 10px">
+      <div class="form-group col-lg-3">
+        <label for="city" class="">City</label>
+        <input type="text" name="city" value="{{fest.city}}" class="form-control" required>
+      </div>
+      <div class="form-group col-lg-3">
+        <label for="district" class="">District</label>
+        <input type="text" name="district" value="{{fest.district}}" class="form-control" required>
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="state" class="">State</label>
+        <input type="text" name="state" value="{{fest.state}}" class="form-control" required>
+      </div>
+      <div class="form-group col-lg-2">
+        <label for="pincode" class="">Pincode</label>
+        <input type="text" name="pincode" value="{{fest.pincode}}" class="form-control" required>
+      </div>
+    </div>
+    <hr>
+    <p class="heading">Guest details</p>
+    <div class="form-row" style="margin:0 10px">
+      <div class="form-group col-lg-4">
+        <label for="chiefguest1" class="">Chief Guest 1</label>
+        <input type="text" name="chiefguest1" value="{{fest.chiefguest1}}" class="form-control">
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="chiefguest2" class="">Chief Guest 2</label>
+        <input type="text" name="chiefguest2" value="{{fest.chiefguest2}}" class="form-control" autofocus>
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="chiefguest3" class="">Chief Guest 3</label>
+        <input type="text" name="chiefguest3" value="{{fest.chiefguest3}}" class="form-control" autofocus>
+      </div>
+    </div>
+    <hr>
+    <p class="heading">SPOCs details</p>
+    <div class="form-row" style="margin:0 10px">
+      <div class="form-group col-lg-4">
+        <label for="spocname1" class="">Spoc1 name</label>
+        <input type="text" name="spocname1" value="{{fest.spocname1}}" class="form-control" required>
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="spocmail1" class="">Spoc1 mail</label>
+        <input type="text" name="spocmail1" value="{{fest.spocmail1}}" class="form-control" required>
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="spocphone1" class="">Spoc1 phone</label>
+        <input type="text" name="spocphone1" value="{{fest.spocphone1}}" class="form-control" required>
+      </div>
+    </div>
+    <div class="form-row" style="margin:0 10px">
+      <div class="form-group col-lg-4">
+        <label for="spocname2" class="">Spoc2 name</label>
+        <input type="text" name="spocname2" value="{{fest.spocname2}}" class="form-control">
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="spocmail2" class="">Spoc2 mail</label>
+        <input type="text" name="spocmail2" value="{{fest.spocmail2}}" class="form-control" autofocus>
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="spocphone2" class="">Spoc2 phone</label>
+        <input type="text" name="spocphone2" value="{{fest.spocphone2}}" class="form-control" autofocus>
+      </div>
+    </div>
+    <hr>
+    <p class="heading">Other details</p>
+    <div class="form-row" style="margin:0 10px">
+      <div class="form-group col-lg-2">
+        <label for="registrationfee" class="">Registration Fee</label>
+        <input type="text" name="registrationfee" value="{{fest.registration_fee}}" class="form-control">
+      </div>
+      <div class="form-group col-lg-2">
+        <label for="food" class="">Food provided</label>
+        <select class="form-control" name="food">
+          <option {% if fest.food == 'Y' %} selected {% endif %} value="Y">Provided</option>
+          <option {% if fest.food == 'N' %} selected {% endif %} value="N">Not Provided</option>
+        </select>
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="festmail" class="">Fest mail</label>
+        <input type="text" name="festmail" value="{{fest.festmail}}" class="form-control">
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="website" class="">College website</label>
+        <input type="text" name="website" value="{{fest.collegewebsite}}" class="form-control">
+      </div>
+    </div>
+    <div class="form-row" style="margin: 0 10px">
+      <div class="form-group col-lg-2">
+        <label for="accomodation">Accomodation</label>
+        <select class="form-control" name="accomodation">
+          <option {% if fest.accomodation == 'Y' %} selected {% endif %} value="Y">Provided</option>
+          <option {% if fest.accomodation == 'N' %} selected {% endif %} value="N">Not Provided</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" name="button" class="btn btn-outline-secondary left15">Submit</button>
+
+  </form>
+</div>
+{% endblock %}

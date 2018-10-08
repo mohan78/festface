@@ -1,0 +1,72 @@
+{% extends 'event/base.html' %}
+
+{% block body %}
+<div class="mycontainer" id="viewregistrations">
+  <p><strong>Total registrations:</strong> {{totalcount}}</p>
+  <h4>Count by sub events</h4>
+  <table class="table table-bordered">
+    <thead>
+      <th>Sub-event</th>
+      <th>No of registrations</th>
+    </thead>
+    <tbody>
+      {% for key,value in countbyevents.items %}
+        <tr>
+          <td>{{key}}</td>
+          <td>{{value}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h4>Registrations details</h4>
+  <div class="col-lg-4" style="padding:10px 0px">
+    <select class="form-control" name="" id="regfilter">
+      <option value="">All</option>
+      {% for event in events %}
+        <option value="{{event.id}}">{{event.title}}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <table class="table table-bordered" id="regtable">
+    <thead>
+      <th>Event</th>
+      <th>Sub Event</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>College</th>
+    </thead>
+    <tbody>
+      {% for reg in regs %}
+        <tr>
+          <td>{{reg.festmeta.festname}}</td>
+          <td>{{reg.event.title}}</td>
+          <td>{{reg.username.firstname}}</td>
+          <td>{{reg.username.lastname}}</td>
+          <td>{{reg.username.college}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $('#regfilter').on('change',function(){
+    var pk = $('#regfilter').val();
+    $.ajax({
+      url: '/getregdetails',
+      data: {
+        'pk':pk,
+        'festpk':{{festpk}}
+      },
+      method: 'get',
+      success: function(data){
+        $('#regtable').html(data)
+      }
+    });
+  });
+
+
+</script>
+{% endblock %}

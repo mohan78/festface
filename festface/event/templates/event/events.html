@@ -1,0 +1,24 @@
+{% extends 'event/base.html' %}
+
+{% block body %}
+{% load static %}
+<div class="mycontainer" id="events">
+  <div class="row" style="margin:0">
+    {% for event in events %}
+      <div class="col-lg-4">
+        <div class="card shadow" style="">
+          <div class="card-body">
+            <h3 class="card-title">{{event.title}}</h3>
+            <p>{{event.short_desc}}</p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'displayevent' event.id %}">
+              <button type="button" name="button" class="btn btn-outline-primary">View</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

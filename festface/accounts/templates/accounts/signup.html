@@ -1,0 +1,112 @@
+{% extends 'registration/authbase.html' %}
+{% block body %}
+
+<div class="card" style="max-width:950px" id="registercard">
+  <div class="card-header">
+    <h4>Register</h4>
+  </div>
+  <div class="card-body">
+    <form class="" action="{% url 'register' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group row">
+        <label for="firstname" class="col-form-label">First name</label>
+        <div class="col-lg-3">
+          <input type="text" name="firstname" value="" class="form-control" required>
+        </div>
+        <label for="lastname" class="col-form-label">Last name</label>
+        <div class="col-lg-3">
+          <input type="text" name="lastname" value="" class="form-control" required>
+        </div>
+        <label for="gender" class="col-form-label">Gender</label>
+        <div class="col-lg-2">
+          <select class="form-control" name="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="username" class="col-form-label">Username </label>
+        <div class="col-lg-3">
+        <input type="text" name="username" class="form-control" placeholder="username" required>
+        </div>
+        <label for="email" class="col-form-label">Email</label>
+        <div class="col-lg-4">
+          <input type="email" name="email" placeholder="" class="form-control" required>
+        </div>
+        <label for="dob" class="col-form-label">DOB</label>
+        <div class="col-lg-3">
+          <input type="text" name="dob" placeholder="Date of Birth" class="form-control" id="datepicker">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="password" class="col-form-label">Password</label>
+        <div class="col-lg-3">
+          <input type="password" name="password" placeholder="min 8 chars length" class="form-control" required id="password">
+        </div>
+        <label for="confirmpassword" class="col-form-label">Confirm password</label>
+        <div class="col-lg-3">
+          <input type="password" name="confirmpassword"  class="form-control" required id="confirmpassword">
+          <p id="pwdinvalid" class="input-caption"></p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="branch" class="col-form-label">Branch</label>
+        <div class="col-lg-5">
+          <select class="form-control" name="branch">
+            <option value="ece">Electronics and Communication</option>
+            <option value="cse">Computer Science and Engineering</option>
+            <option value="eee">Electrical and Electronics Engineering</option>
+          </select>
+        </div>
+        <label for="college" class="col-form-label">College</label>
+        <div class="col-lg-5">
+          <input type="text" name="college" class="form-control" value="">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="city" class="col-form-label">City / Village</label>
+        <div class="col-lg-3">
+          <input type="text" name="city" class="form-control" value="">
+        </div>
+        <label for="district" class="col-form-label">District</label>
+        <div class="col-lg-3">
+          <input type="text" name="district" class="form-control" value="">
+        </div>
+        <label for="state" class="col-form-label">State</label>
+        <div class="col-lg-3">
+          <input type="text" name="state" class="form-control" value="">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="pincode" class="col-form-label">Pincode</label>
+        <div class="col-lg-2">
+          <input type="text" name="pincode" value="" class="form-control" id="pincode">
+        </div>
+        <label for="phone" class="col-form-label">Phone</label>
+        <div class="col-lg-3">
+          <input type="text" name="phone" value="" class="form-control">
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" name="button" id="registersubmit" class="btn btn-primary">Register</button>
+        <p>{{message}}</p>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <script type="text/javascript">
+    $('#confirmpassword').on('keyup',function(){
+      if($('#password').val() == $('#confirmpassword').val()){
+        $('#pwdinvalid').html('');
+        $('#registersubmit').prop("disabled",false);
+      }
+      else{
+      $('#pwdinvalid').html('Passwords not matching');
+      $('#registersubmit').prop("disabled",true);
+      }
+    });
+    $('#datepicker').datepicker({ uiLibrary: 'bootstrap4', iconsLibrary: 'materialicons', format: 'dd-mm-yyyy' });
+  </script>
+{% endblock %}

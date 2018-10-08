@@ -1,0 +1,81 @@
+{% extends 'event/base.html' %}
+
+{% block body %}
+{% load static %}
+<div class="mycontainer" id="displayfest">
+  <div class="row">
+    <div class="col-lg-8">
+      <h4 style="color:#C42BB1"><strong>{{fest}}</strong></h4>
+      <p>{{fest.description}}</p>
+      <p><i class="fas fa-code-branch"></i>  {{fest.branch}}</p>
+      <p><strong>Start Date: </strong>{{fest.start_date}}</p>
+      <p><strong>End Date: </strong>{{fest.end_date}}</p>
+      <p><strong>College: </strong>{{fest.college}}</p>
+      <p><strong>Venue: </strong>{{fest.venue}}</p>
+      <p><strong>Address: </strong>{{fest.college_address}}, {{fest.city}}, {{fest.district}}, {{fest.state}} - {{fest.pincode}}</p>
+      <p><strong>Registration Fee: </strong>{{fest.registration_fee}}</p>
+      {% if fest.accomodation == 'N' %}
+        <p><strong>Accomodation: </strong>Not Provided</p>
+      {% else %}
+        <p><strong>Accomodation: </strong>Provided</p>
+      {% endif %}
+      {% if fest.food == 'N' %}
+        <p><strong>Food: </strong>Not Provided</p>
+      {% else %}
+        <p><strong>Food: </strong>Provided</p>
+      {% endif %}
+      <hr>
+      <h5>Contact Information</h5>
+      <div class="spoc">
+        <p><strong>Spoc1: </strong></p>
+        <p>{{fest.spocname1}}</p>
+        <p>{{fest.spocmail1}}</p>
+        <p>{{fest.spocphone1}}</p>
+      </div>
+      <div class="spoc">
+        <p><strong>Spoc2: </strong></p>
+        <p>{{fest.spocname2}}</p>
+        <p>{{fest.spocmail2}}</p>
+        <p>{{fest.spocphone2}}</p>
+      </div>
+      <p><strong>Mail Id: </strong>{{fest.festmail}}</p>
+      <p><strong>College website: </strong><a href="http://{{fest.collegewebsite}}/" target="_blank">{{fest.collegewebsite}}</a></p>
+      {% if user_access %}
+        {% if user.username == fest.username %}
+          <form class="" action="{% url 'addevent' %}" method="get">
+            <input type="text" name="festname" value="{{fest.id}}" id="festid" hidden>
+            <button type="submit" name="button">Add event</button>
+            <button type="button" name="delete" id="deletefest">Delete</button>
+          </form>
+        {% endif %}
+      {% endif %}
+
+      <a href="{% url 'events' fest.id %}" target="_blank"><button type="button" name="button" class="btn2">Display events</button></a>
+    </div>
+    <div class="col-lg-4">
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $('#deletefest').on('click',function(){
+    var pk = $('#festid').val();
+    if (confirm("Are you sure want to delete?")){
+      $.ajax({
+        method: 'get',
+        url: '/deletefest',
+        data: {
+          'pk':pk
+        },
+        dataType: 'json',
+        success: function(message){
+          $('#displayfest').html(message.message)
+        }
+      });
+    }
+    return false;
+  });
+</script>
+{% endblock %}

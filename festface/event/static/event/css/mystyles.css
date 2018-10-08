@@ -1,0 +1,330 @@
+body {
+  background: linear-gradient(#FCF4FF,#FCF4FF);
+  min-height: 100vh;
+}
+
+.row {
+  margin: 0px;
+}
+
+.navbar {
+  font-family: 'Lato', sans-serif;
+}
+
+.navbar-nav {
+  margin: 0 130px;
+}
+
+.navbar-nav li {
+  padding: 0 10px 0 0;
+}
+
+.navbar-brand {
+  margin-left: 140px;
+}
+
+.mycontainer {
+  margin: 0px 150px;
+  background: linear-gradient(#FCF4FF,#FCF4FF);
+  min-height: 100vh;
+  font-family: 'Lato', sans-serif;
+}
+
+.sub-section {
+  padding: 20px 100px;
+}
+
+.sub-section h4 {
+  color: black;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.sub-section p {
+  padding: 10px 0px;
+}
+
+.myfooter {
+  background-color: #E5C4E1;
+  min-height: 100px;
+  color: white;
+  font-family: 'Lato', sans-serif;
+}
+
+#contactinfo {
+  font-size: 12px;
+}
+
+#footer-content {
+  padding: 20px 0px;
+  color: #5A3E56;
+}
+
+#footer-content a {
+  color: #7A5C76;
+  padding-left: 10px;
+}
+
+.center {
+  padding: 0 0 50px 0;
+}
+
+.center button {
+  display: flex;
+  margin: auto;
+}
+
+.btn1 {
+  background-color: #FEEBFF;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  transition: 0.3s all;
+}
+
+.btn1:hover {
+  box-shadow: 2px 7px 20px #DECEDF;
+  transition: 0.3s all;
+}
+
+.btn1 a {
+  color: #575757;
+}
+
+.btn1 a:hover {
+  text-decoration: none;
+  color: #575757;
+  font-weight: 400;
+}
+
+#events .card {
+  margin: 10px 0px;
+}
+
+.shadow {
+  box-shadow: none;
+  transition: 0.4s all;
+}
+
+.shadow:hover {
+  box-shadow: 5px 8px 30px #D7D2D1;
+  transition: 0.4s all;
+}
+
+#events {
+  font-family: 'Lato', sans-serif;
+}
+
+#events h4 {
+  padding: 30px 15px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #310033;
+}
+
+#events h5 {
+  padding: 15px;
+}
+
+#eventdisplay {
+  font-family: 'Lato', sans-serif;
+}
+
+#displayevent {
+  padding: 30px;
+}
+
+#register {
+  margin: 0 25px;
+}
+
+#alreadyreg {
+  padding: 25px;
+  color: green;
+}
+
+#rulesheading {
+  padding: 0 20px;
+}
+
+#rules li {
+  padding: 10px 0;
+}
+
+#addevent {
+  font-family: 'Lato', sans-serif;
+}
+
+#addrule {
+  font-size: 12px;
+  margin: 0 15px;
+}
+
+#createevent button {
+  background-color: #DB7F67;
+  color:white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 10px;
+  margin: 15px 0px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#createevent button:hover {
+  box-shadow: 2px 10px 10px #E7DBD8;
+  transition: 0.3s;
+}
+
+.intro {
+  padding: 20px 0px;
+}
+.intro p {
+  padding: 0 15px;
+}
+
+#addevent h5 {
+  padding: 0 15px;
+}
+
+#dashboard {
+  font-family: 'Lato', sans-serif;
+}
+
+#dashboard .card {
+  min-height: 15rem;
+}
+
+#dashboard .card a {
+  display: block;
+}
+
+#dashboard h4 {
+  padding: 15px;
+}
+
+.card-caption {
+  font-size: 13px;
+}
+
+#noaccess {
+  display: flex;
+}
+
+#noaccess h4 {
+  margin: auto;
+  font-family: 'Lato', sans-serif;
+  color: red;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.heading {
+  padding: 10px 15px;
+  font-size: 18px;
+  color: #00757B;
+  font-weight: 600;
+}
+
+#festmeta {
+  font-family: 'Lato', sans-serif;
+  padding: 20px 0;
+}
+
+#festmeta h2 {
+  color: #58007B;
+  padding: 10px 15px;
+}
+
+.left15 {
+  margin: 10px 15px;
+}
+
+#jumbotron {
+  min-height: 350px;
+  background: #A663C0;
+}
+
+#home-intro {
+  padding: 30px;
+}
+
+#home-intro p {
+  padding: 20px 40px;
+  color: #50006F;
+}
+
+#home-steps {
+  padding: 50px 20px;
+}
+
+#home-steps p {
+  font-size: 18px;
+  color: #330046;
+}
+
+#features {
+  padding: 40px;
+  text-align: center;
+}
+
+#features h4 {
+  font-weight: 600;
+}
+
+#features p {
+  padding: 20px;
+  color:  #AFA1B4;
+}
+
+#displayfest {
+  padding: 20px 0;
+}
+
+#displayfest strong {
+
+}
+
+.eventsindex-heading h5 {
+  color: #B96FB0;
+  margin: 0px;
+}
+
+.eventsindex-heading hr {
+  border-width: 3px;
+  background-color: #C42BB1;
+  margin: 7px 5px;
+  width: 140px;
+}
+
+.evindcards p {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+#evcards .card {
+  margin: 20px 0px;
+  padding: 10px;
+}
+
+.eventsindex-intro {
+  text-align: center;
+  padding: 20px 0;
+}
+
+#eventsindex {
+  padding: 30px 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .mycontainer {
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .sub-section {
+    padding: 20px 20px;
+  }
+}

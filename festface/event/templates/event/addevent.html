@@ -1,0 +1,77 @@
+{% extends 'event/base.html' %}
+
+{% block body %}
+<div class="mycontainer" id="addevent">
+  <div class="intro">
+    <h5>Add event: {{fest.festname}}</h5>
+    <p>Here you can add event details and its rules.</p>
+  </div>
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    <div class="form-row" style="margin:0 10px">
+      <div class="form-group col-lg-6">
+        <label for="title">Title</label>
+        <input type="text" name="title" value="" class="form-control">
+      </div>
+      <div class="form-group col-lg-4">
+        <label for="category">Category</label>
+        <select class="form-control" name="category">
+          <option value="General">General</option>
+          <option value="CSE and IT">CSE and IT</option>
+          <option value="ECE">ECE</option>
+          <option value="EEE">EEE</option>
+          <option value="Mechanical">Mechanical</option>
+          <option value="Civil">Civil</option>
+          <option value="MBA">MBA</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group col-lg-10">
+      <label for="shortdesc">Short Description</label>
+      <textarea name="shortdesc" rows="2" class="form-control" placeholder="This will be dispayed on intro card"></textarea>
+    </div>
+    <div class="form-group col-lg-10">
+      <label for="briefdesc">Brief Description</label>
+      <textarea name="briefdesc" rows="4" class="form-control"></textarea>
+    </div>
+    <div class="form-row" style="margin:10px">
+      <div class="form-group col-lg-5">
+        <label for="venue">Venue</label>
+        <input type="text" name="venue" value="" class="form-control" placeholder="Example: Block name, Hall name etc">
+      </div>
+      <div class="form-group col-lg-3">
+        <label for="eventdate">Event date</label>
+        <input type="text" name="eventdate" value="" class="form-control" id="datepicker" placeholder="DD-MM-YYYY">
+      </div>
+      <div class="form-group col-lg-2">
+        <label for="regfee">Registration fee</label>
+        <input type="text" name="regfee" value="" class="form-control" placeholder="in Rs.">
+      </div>
+    </div>
+    <h5>Add rules:</h5>
+    <div class="rules">
+      <div class="form-group col-lg-10">
+        <label for="1">Rule:</label>
+        <textarea name="rule[]" rows="2" class="form-control" id="rule"></textarea>
+      </div>
+    </div>
+    <button type="button" name="addrule" class="btn btn-primary" id="addrule">Add rule</button>
+    <div class="col-lg-2" id="createevent">
+      <button type="submit" name="button" class="">Create event</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    var fieldhtml = '<div class="form-group col-lg-10"><label for="1">Rule:</label><textarea name="rule[]" rows="2" class="form-control" id="rule"></textarea></div>';
+    $('#addrule').on('click',function(){
+      $('.rules').append(fieldhtml);
+    });
+  });
+  function noenter() {
+  return !(window.event && window.event.keyCode == 13);
+  };
+</script>
+{% endblock %}

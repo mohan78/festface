@@ -1,0 +1,18 @@
+<thead>
+  <th>Event</th>
+  <th>Sub Event</th>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>College</th>
+</thead>
+<tbody>
+  {% for reg in regs %}
+    <tr>
+      <td>{{reg.festmeta.festname}}</td>
+      <td>{{reg.event.title}}</td>
+      <td>{{reg.username.firstname}}</td>
+      <td>{{reg.username.lastname}}</td>
+      <td>{{reg.username.college}}</td>
+    </tr>
+  {% endfor %}
+</tbody>
