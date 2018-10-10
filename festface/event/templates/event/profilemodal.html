@@ -1,0 +1,23 @@
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Details:</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Name:</strong> {{profile.firstname|title}} {{profile.lastname|title}}</p>
+        <p><strong>Gender:</strong> {{profile.gender}}</p>
+        <p><strong>Date of Birth:</strong> {{profile.dob}}</p>
+        <p><strong>Branch:</strong> {{profile.branch}}</p>
+        <p><strong>College:</strong> {{profile.college|title}}</p>
+        <p><strong>Address:</strong> {{profile.city}}, {{profile.district}} district, {{profile.state}} - {{profile.pincode}}</p>
+        <p><strong>Email:</strong> {{user.email}}</p>
+        <p><strong>Phone:</strong> {{profile.phone}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

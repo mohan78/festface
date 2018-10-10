@@ -4,20 +4,22 @@
 <div class="mycontainer" id="viewregistrations">
   <p><strong>Total registrations:</strong> {{totalcount}}</p>
   <h4>Count by sub events</h4>
-  <table class="table table-bordered">
-    <thead>
-      <th>Sub-event</th>
-      <th>No of registrations</th>
-    </thead>
-    <tbody>
-      {% for key,value in countbyevents.items %}
-        <tr>
-          <td>{{key}}</td>
-          <td>{{value}}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered table-responsive">
+      <thead>
+        <th>Sub-event</th>
+        <th>No of registrations</th>
+      </thead>
+      <tbody>
+        {% for key,value in countbyevents.items %}
+          <tr>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   <h4>Registrations details</h4>
   <div class="col-lg-4" style="padding:10px 0px">
     <select class="form-control" name="" id="regfilter">
@@ -27,27 +29,35 @@
       {% endfor %}
     </select>
   </div>
+  <div class="table-responsive">
+    <table class="table table-bordered" id="regtable">
+      <thead>
+        <th>Event</th>
+        <th>Sub Event</th>
+        <th>Name</th>
+        <th>College</th>
+        <th>Reg. fee paid</th>
+      </thead>
+      <tbody>
+        {% for reg in regs %}
+          <tr>
+            <td hidden><input type="text" id="rid" value="{{reg.id}}"></td>
+            <td>{{reg.festmeta.festname}}</td>
+            <td>{{reg.event.title}}</td>
+            <td id="username"><input type="text" name="uid" value="{{reg.username.id}}" id="uid" hidden><a href="#" data-toggle="modal" data-target="#exampleModalLong">{{reg.username.firstname}} {{reg.username.lastname}}</a></td>
+            <td>{{reg.username.college}}</td>
+            <td>{{reg.regfeestatus}}<button id="changereg" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Change" style="padding:0 5px;margin:0 5px">
+              <i class="fas fa-exchange-alt"></i>
+            </button></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-  <table class="table table-bordered" id="regtable">
-    <thead>
-      <th>Event</th>
-      <th>Sub Event</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>College</th>
-    </thead>
-    <tbody>
-      {% for reg in regs %}
-        <tr>
-          <td>{{reg.festmeta.festname}}</td>
-          <td>{{reg.event.title}}</td>
-          <td>{{reg.username.firstname}}</td>
-          <td>{{reg.username.lastname}}</td>
-          <td>{{reg.username.college}}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+</div>
+<div id="profilemodal">
+
 </div>
 {% endblock %}
 {% block script %}
@@ -66,7 +76,33 @@
       }
     });
   });
-
-
+  $('table').on('click','[id=changereg]',function(){
+    var pk = $(this).closest('tr').find('#rid').val();
+    $.ajax({
+      url: '/changeregfee',
+      data: {
+        'pk':pk
+      },
+      method: 'get',
+      dataType: 'json',
+      success: function(regobj){
+        window.location.reload();
+      }
+    });
+  });
+  $('table').on('click','[id=username]',function(){
+    var pk = $(this).closest('tr').find('#uid').val();
+    $.ajax({
+      url: '/userdisplay',
+      type: 'get',
+      data: {
+        'pk': pk
+      },
+      success: function(data){
+        $('#profilemodal').html(data);
+        $('#myModal').modal();
+      }
+    });
+  });
 </script>
 {% endblock %}

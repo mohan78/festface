@@ -17,4 +17,8 @@ urlpatterns = [
     path('editfest/<pk>',views.editfest,name="editfest"),
     path('viewregistrations/<pk>',views.viewregistrations,name="viewregistrations"),
     path('getregdetails/',views.getregdetails,name="getregdetails"),
+    path('changeregfee/',views.changeregfee,name="changeregfee"),
+    path('profile/',views.profile,name="profile"),
+    path('changepass/',views.changepass,name="changepass"),
+    path('userdisplay/',views.userdisplay,name="userdisplay"),
 ]

@@ -3,8 +3,10 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Events, Rules, Registrations, Festmeta
 from accounts.models import Staff, Students
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, User
 from django.db.models import Count
+from django.forms.models import model_to_dict
+from django.contrib.auth import authenticate
 
 def eventsindex(request):
     events = Festmeta.objects.all()
@@ -19,9 +21,11 @@ def eventsindex(request):
 @login_required
 def dashboard(request):
     context = {}
-    user = request.user
+    user = User.objects.get(username=request.user.username)
+    userobj = Students.objects.get(username=user.id)
     fests = Festmeta.objects.filter(username=user.username)
-    context = {'fests':fests,'user':user}
+    regs = userobj.user_register.all()
+    context = {'fests':fests,'user':user,'regs':regs}
     return render(request,'event/dashboard.html',context)
 
 def events(request,pk):
@@ -76,7 +80,7 @@ def registerevent(request):
     pk = request.GET.get('id')
     student = Students.objects.get(username=user)
     event = Events.objects.get(id=pk)
-    reg = Registrations(username=student,event=event,festmeta=event.festname)
+    reg = Registrations(username=student,event=event,festmeta=event.festname,regfeestatus="No")
     reg.save()
     data = {'message':'Registration Successful'}
     return JsonResponse(data)
@@ -162,13 +166,13 @@ def home(request):
 def deletefest(request):
     pk = request.GET.get('pk')
     Festmeta.objects.get(id=pk).delete()
-    data = {'message':'The event has been deleted'}
+    data = {'message':'<div class="alert alert-success" role="alert">Event has been deleted</div>'}
     return JsonResponse(data)
 
 def deleteevent(request):
     pk = request.GET.get('pk')
     Events.objects.get(id=pk).delete()
-    data = {'message':'The sub-event has been deleted'}
+    data = {'message':'<div class="alert alert-success" role="alert">Sub-Event has been deleted</div>'}
     return JsonResponse(data)
 
 def editfest(request,pk):
@@ -228,10 +232,69 @@ def getregdetails(request):
     context = {}
     regs = ''
     if pk == '':
-        regs = Registrations.objects.filter(festmeta=festpk)
+        regs = Registrations.objects.filter(festmeta=festpk).order_by('-id')
         context = {'regs':regs}
     else:
         event = Events.objects.get(id=pk)
-        regs = Registrations.objects.filter(event=event,festmeta=festpk)
+        regs = Registrations.objects.filter(event=event,festmeta=festpk).order_by('id')
         context = {'regs':regs}
     return render(request,'event/regtable.html',context)
+
+def changeregfee(request):
+    pk = request.GET.get('pk')
+    regobj = Registrations.objects.get(id=pk)
+    if regobj.regfeestatus == "No":
+        regobj.regfeestatus = "Yes"
+    else:
+        regobj.regfeestatus = "No"
+    regobj.save()
+    return JsonResponse(model_to_dict(regobj))
+
+
+def profile(request):
+    userobj = User.objects.get(username=request.user.username)
+    profile = Students.objects.get(username=userobj)
+    if request.method == "POST":
+        profile.firstname = request.POST.get('firstname')
+        profile.lastname = request.POST.get('lastname')
+        dob = request.POST.get('dob')
+        d,m,y = dob.split('-')
+        dob = y+'-'+m+'-'+d
+        profile.dob = dob
+        profile.gender = request.POST.get('gender')
+        profile.branch = request.POST.get('branch')
+        profile.college = request.POST.get('college')
+        profile.city = request.POST.get('city')
+        profile.district = request.POST.get('district')
+        profile.state = request.POST.get('state')
+        profile.pincode = request.POST.get('pincode')
+        profile.phone = request.POST.get('phone')
+        profile.save()
+        return redirect('profile')
+    context = {'profile':profile,'user':userobj}
+    return render(request,'event/profile.html',context)
+
+
+def changepass(request):
+    curpass = request.POST.get('curpass')
+    newpass = request.POST.get('newpass')
+    username = request.user.username
+    message = ''
+    obj = authenticate(username=username,password=curpass)
+    if obj:
+        user = User.objects.get(username=username)
+        user.set_password(newpass)
+        user.save()
+        message = 'c'
+    else:
+        message = 'nc'
+    data = {'message':message}
+    return JsonResponse(data)
+
+
+def userdisplay(request):
+    pk = request.GET.get('pk')
+    profile = Students.objects.get(id=pk)
+    user = User.objects.get(id=profile.username_id)
+    context = {'profile':profile,'user':user}
+    return render(request,'event/profilemodal.html',context)

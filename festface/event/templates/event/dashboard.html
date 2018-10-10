@@ -3,30 +3,64 @@
 {% block body %}
 {% load static %}
 <div class="mycontainer" id="dashboard">
-  <div class="row">
-  {% for fest in fests %}
-    <div class="col-lg-4">
-      <div class="card">
-        <h4 class="card-title">{{fest.festname}}</h4>
-        <div class="card-body">
-          <p>{{fest.description}}</p>
-          <p>{{fest.college}}</p>
-          <p>{{fest.start_date}}</p>
-        </div>
-        <div class="card-footer">
-          <a href="{% url 'displayfest' fest.id %}">
-            <button type="button" name="button">Display</button>
-          </a>
-          <a href="{% url 'editfest' fest.id %}">
-            <button type="button" name="button">Edit</button>
-          </a>
-          <a href="{% url 'viewregistrations' fest.id %}">
-            <button type="button" name="button">View registrations</button>
-          </a>
+  <h3>Your registrations:</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <th>Event name</th>
+        <th>Sub event</th>
+        <th>Date</th>
+        <th>College</th>
+        <th>City</th>
+      </thead>
+      <tbody>
+        {% for reg in regs %}
+          <tr>
+            <td><a href="{% url 'displayfest' reg.festmeta.id %}">{{reg.festmeta.festname}}</a></td>
+            <td><a href="{% url 'displayevent' reg.event.id %}">{{reg.event.title}}</a></td>
+            <td>{{reg.event.eventdate}}</td>
+            <td>{{reg.festmeta.college}}</td>
+            <td>{{reg.festmeta.city}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  {% if fests|length != 0 %}
+    <h3>Your events:</h3>
+    <div class="row" style="margin:0px">
+    {% for fest in fests %}
+      <div class="col-lg-4">
+        <div class="card shadow">
+          <h4 class="card-header">{{fest.festname}}</h4>
+          <div class="card-body">
+            <p>{{fest.college}}</p>
+            <p>{{fest.start_date}}</p>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col">
+                <a href="{% url 'displayfest' fest.id %}">
+                  <button type="button" name="button" class="">Display</button>
+                </a>
+              </div>
+              <div class="col">
+                <a href="{% url 'editfest' fest.id %}">
+                  <button type="button" name="button">Edit</button>
+                </a>
+              </div>
+              <div class="col">
+                <a href="{% url 'viewregistrations' fest.id %}">
+                  <button type="button" name="button">Registrations</button>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    {% endfor %}
     </div>
-  {% endfor %}
-  </div>
+  {% endif %}
 </div>
 {% endblock %}

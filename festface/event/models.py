@@ -60,3 +60,4 @@ class Registrations(models.Model):
     festmeta = models.ForeignKey(Festmeta,on_delete=models.CASCADE,related_name="fest_register")
     username = models.ForeignKey(Students,on_delete = models.CASCADE, related_name="user_register")
     event = models.ForeignKey(Events, on_delete = models.CASCADE, related_name="event_register")
+    regfeestatus = models.CharField(max_length=3)

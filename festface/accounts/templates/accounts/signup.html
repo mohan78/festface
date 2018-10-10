@@ -1,7 +1,7 @@
-{% extends 'registration/authbase.html' %}
+{% extends 'event/base.html' %}
 {% block body %}
 
-<div class="card" style="max-width:950px" id="registercard">
+<div class="mycontainer" id="registercard">
   <div class="card-header">
     <h4>Register</h4>
   </div>
@@ -22,6 +22,7 @@
           <select class="form-control" name="gender">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
+            <option value="Trans">Trans</option>
           </select>
         </div>
       </div>
@@ -54,9 +55,14 @@
         <label for="branch" class="col-form-label">Branch</label>
         <div class="col-lg-5">
           <select class="form-control" name="branch">
-            <option value="ece">Electronics and Communication</option>
-            <option value="cse">Computer Science and Engineering</option>
-            <option value="eee">Electrical and Electronics Engineering</option>
+            <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+            <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+            <option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Chemical Engineering">Chemical Engineering</option>
+            <option value="Electronics and Instrumentation Engineering">Electronics and Instrumentation Engineering</option>
           </select>
         </div>
         <label for="college" class="col-form-label">College</label>
@@ -89,6 +95,7 @@
         </div>
       </div>
       <div class="card-footer">
+        <p>By clicking register, you agree to <a href="#">Terms and Conditions</a> </p>
         <button type="submit" name="button" id="registersubmit" class="btn btn-primary">Register</button>
         <p>{{message}}</p>
       </div>

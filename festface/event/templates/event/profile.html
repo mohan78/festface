@@ -1,0 +1,159 @@
+{% extends 'event/base.html' %}
+
+{% block body %}
+<div class="mycontainer" id="profile">
+  <strong><h4>Profile</h4></strong>
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    <div class="form-row" style="margin:0">
+      <div class="form-group col-lg-3">
+        <label for="firstname">First name</label>
+        <input type="text" name="firstname" class="form-control disabledinput" value="{{profile.firstname}}" disabled>
+      </div>
+      <div class="form-group col-lg-3">
+        <label for="lastname">Last name</label>
+        <input type="text" name="lastname" class="form-control disabledinput" value="{{profile.lastname}}" disabled>
+      </div>
+      <div class="form-group col-lg-2">
+        <label for="dob">Date of Birth</label>
+        <input type="text" name="dob" class="form-control disabledinput" value="{{profile.dob|date:'d-m-Y'}}" disabled id="datepicker">
+      </div>
+      <div class="form-group col-lg-2">
+        <label for="gender">Gender</label>
+        <select class="form-control disabledinput" name="gender" disabled>
+          <option {% if profile.gender == 'Male' %} selected {% endif %} value="Male">Male</option>
+          <option {% if profile.gender == 'Female' %} selected {% endif %} value="Female">Female</option>
+          <option {% if profile.gender == 'Trans' %} selected {% endif %} value="Trans">Trans</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row" style="margin:0">
+      <div class="form-group col-lg-5">
+        <label for="branch">Branch</label>
+        <select class="form-control disabledinput" name="branch" disabled>
+          <option {% if profile.branch == 'Electronics and Communication Engineering' %} selected {% endif %} value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+          <option {% if profile.branch == 'Computer Science and Engineering' %} selected {% endif %} value="Computer Science and Engineering">Computer Science and Engineering</option>
+          <option {% if profile.branch == 'Electrical and Electronics Engineering' %} selected {% endif %} value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+          <option {% if profile.branch == 'Civil Engineering' %} selected {% endif %} value="Civil Engineering">Civil Engineering</option>
+          <option {% if profile.branch == 'Mechanical Engineering' %} selected {% endif %} value="Mechanical Engineering">Mechanical Engineering</option>
+          <option {% if profile.branch == 'Information Technology' %} selected {% endif %} value="Information Technology">Information Technology</option>
+          <option {% if profile.branch == 'Chemical Engineering' %} selected {% endif %} value="Chemical Engineering">Chemical Engineering</option>
+          <option {% if profile.branch == 'Electronics and Instrumentation Engineering' %} selected {% endif %} value="Electronics and Instrumentation Engineering">Electronics and Instrumentation Engineering</option>
+
+        </select>
+      </div>
+      <div class="form-group col-lg-5">
+        <label for="college">College</label>
+        <input type="text" name="college" class="form-control disabledinput" value="{{profile.college}}" disabled>
+      </div>
+    </div>
+    <div class="form-row" style="margin:0">
+      <div class="form-group col-lg-3">
+        <label for="city">City</label>
+        <input type="text" name="city" class="form-control disabledinput" value="{{profile.city}}" disabled>
+      </div>
+      <div class="form-group col-lg-2">
+        <label for="district">District</label>
+        <input type="text" name="district" class="form-control disabledinput" value="{{profile.district}}" disabled>
+      </div>
+      <div class="form-group col-lg-3">
+        <label for="state">State</label>
+        <input type="text" name="state" class="form-control disabledinput" value="{{profile.state}}" disabled>
+      </div>
+      <div class="form-group col-lg-2">
+        <label for="pincode">Pincode</label>
+        <input type="text" name="pincode" class="form-control disabledinput" value="{{profile.pincode}}" disabled>
+      </div>
+    </div>
+    <div class="form-row" style="margin:0">
+      <div class="form-group col-lg-3">
+        <label for="email">Email</label>
+        <input type="text" name="email" class="form-control" value="{{user.email}}" disabled>
+      </div>
+      <div class="form-group col-lg-2">
+        <label for="phone">Phone</label>
+        <input type="text" name="phone" class="form-control disabledinput" value="{{profile.phone}}" disabled>
+      </div>
+    </div>
+    <button type="button" name="button" class="" id="editprofile">Edit</button>
+    <button type="submit" name="button" class="" id="saveprofile" hidden>Save</button>
+  </form>
+  <hr>
+  <strong><h4>Change Password</h4> </strong>
+  <form class="" action="" method="post" id="changepassform">
+    {% csrf_token %}
+    <div class="form-group row" style="margin:20px 0px">
+      <div class="col-lg-2">
+        <label for="curpass" class="col-form-label" style="margin-left:0px">Current password</label>
+      </div>
+      <div class="col-lg-3">
+        <input type="password" name="curpass" id="curpass" value="" class="form-control" required>
+      </div>
+    </div>
+    <div class="form-group row" style="margin:20px 0px">
+      <div class="col-lg-2">
+        <label for="newpass" class="col-form-label" style="margin-left:0px">New password</label>
+      </div>
+      <div class="col-lg-3">
+        <input type="password" name="newpass" id="newpass" value="" class="form-control" required>
+      </div>
+    </div>
+    <div class="form-group row" style="margin:20px 0px">
+      <div class="col-lg-2">
+        <label for="confirmpass" class="col-form-label" style="margin:0px">Confirm password</label>
+      </div>
+      <div class="col-lg-3">
+        <input type="password" name="confirmpass" id="confirmpass" value="" class="form-control" required>
+      </div>
+    </div>
+    <p id="message"></p>
+    <button type="submit" name="button" class="" id="changepass">Change password</button>
+  </form>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $('#editprofile').on('click',function(){
+    event.preventDefault();
+    $('.disabledinput').prop("disabled",false);
+    $('#editprofile').hide();
+    $('#saveprofile').prop("hidden",false);
+  });
+  $('#changepassform').on('submit',function(event){
+    event.preventDefault();
+    console.log('formsub');
+    changepassword();
+  });
+  function changepassword(){
+    console.log('function called');
+    var pass = $('#newpass').val();
+    var conpass = $('#confirmpass').val();
+    var curpass = $('#curpass').val();
+    console.log(pass,conpass,curpass);
+    if(pass == conpass) {
+      $.ajax({
+        url: '/changepass/',
+        type: 'post',
+        data: {
+          'curpass': curpass,
+          'newpass': pass,
+          'csrfmiddlewaretoken':'{{csrf_token}}'
+        },
+        dataType: 'json',
+        success: function(message){
+          if(message.message == 'c'){
+            $('#message').html('password changed, you will be logged out shortly.');
+            setTimeout(function(){window.location.replace('/accounts/logout');},3000);
+          }
+          else{
+            $('#message').html('Wrong password entered');
+          };
+        }
+      });
+    }
+    else {
+      $('#message').html('Passwords do not match');
+    };
+  }
+</script>
+{% endblock %}
